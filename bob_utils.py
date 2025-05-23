@@ -5,6 +5,7 @@ import aiohttp
 import os
 from dotenv import load_dotenv
 import httpx
+from colorama import Fore, Style
 
 # Create module-level logger
 logger = logging.getLogger(__name__)
@@ -21,246 +22,78 @@ client.http_client = httpx.Client(
 
 history = []  # Initialize an empty list to store the conversation history
 
-async def generate_meme(prompt):
-    logging.info("Starting to generate meme...")
+
+async def get_response(user_input, history_text, bob_system_prompt, discord_channel=None, image_urls=None):
+    logger.info("Starting get_response function for Bob")
+    logger.info(f"Discord channel present: {discord_channel is not None}")
+    logger.info(f"Image URLs provided: {image_urls is not None}")
+
+    # Define tools Bob can use (currently just web search)
+    tools = [{ "type": "web_search_preview",
+              "search_context_size": "high", }]
+
     try:
-        response = client.images.generate(
-            model="dall-e-3",
-            prompt=prompt,
-            size="1792x1024",
-            quality="hd",
-            n=1,
+        logger.info("Preparing input payload for OpenAI responses API")
+
+        # Prepare the base text input including system prompt, history, and user query
+        base_text_input = (
+            f"System Prompt: {bob_system_prompt}\n\n"
+            f"[History Start]\n{history_text}\n[History End]\n\n"
+            f"Format responses using Discord message styling\n"
+            f"Maintain consistency with chat history context\n"
+            f"*vibes intensify*\n\n"
+            f"User Query: {user_input}"  # user_input should be the text part
         )
-        # Log the raw response object for debugging purposes
-        logging.debug("Response received: %s", response)
 
-        # Extract the image URL from the response object
-        image_url = response.data[0].url  # Extract the URL
+        # Start building the content list with the text input
+        input_content = [{"type": "input_text", "text": base_text_input}]
 
-        logging.info("Meme generated successfully. URL: %s", image_url)
-        return image_url
-    except Exception as e:
-        logging.error("An error occurred while generating the meme: %s", e)
-        return None
+        # Add image URLs to the content list if they exist
+        if image_urls:
+            for url in image_urls:
+                input_content.append({"type": "input_image", "image_url": url})
+                logger.info(f"Added image URL to payload: {url}")
 
+        # Structure the final input payload for the API
+        input_payload = [{"role": "user", "content": input_content}]
 
-async def generate_meme_2(prompt):
-    logging.info("Starting to generate meme...")
-    try:
-        response = client.images.generate(
-            model="dall-e-3",
-            prompt=prompt,
-            size="1024x1792",
-            quality="hd",
-            n=1,
-        )
-        # Log the raw response object for debugging purposes
-        logging.debug("Response received: %s", response)
+        logger.debug("Constructed input payload: %s", input_payload)
 
-        # Extract the image URL from the response object
-        image_url = response.data[0].url  # Extract the URL
-
-        logging.info("Meme generated successfully. URL: %s", image_url)
-        return image_url
-    except Exception as e:
-        logging.error("An error occurred while generating the meme: %s", e)
-        return None
-
-
-async def describe_image_with_openai(bob_system_prompt, history_text, image_url,
-                                     accompanying_text):
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{
-            'role': 'system',
-            'content': bob_system_prompt,
-        }, {
-            'role':
-            'user',
-            'content':
-            "I hope that clears everything up about who you are?"
-        }, {
-            'role':
-            'assistant',
-            'content':
-            "It does, thank you so much. I realize now, I am Bob, it all makes sense now. "
-        }, {
-            'role':
-            'user',
-            'content':
-            f'This is a chronological log of the chat you are particiatping in [start of history]{history_text}.[end of history]'
-        }, {
-            'role':
-            'assistant',
-            'content':
-            "acknowledged, thank you for providing the chat history. "
-        }, {
-            "role":
-            "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": accompanying_text
-                },
-                {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": image_url,
-                        "detail": "high"
-                    },
-                },
-            ],
-        }],
-        max_tokens=3000,
-    )
-
-    print(response.choices[0])
-    description_chunks = response.choices[0].message.content
-    return description_chunks
-
-
-async def generate_image_ideogram(prompt, aspect_ratio="ASPECT_1_1", model="V_2"):
-    ideaogram_api_key = os.getenv("IDEAOGRAM_API_KEY")
-    logging.info("Starting to generate image with Ideogram...")
-    try:
-        url = "https://api.ideogram.ai/generate"
-        headers = {
-            "Api-Key": ideaogram_api_key,
-            "Content-Type": "application/json"
-        }
-        payload = {
-            "image_request": {
-                "prompt": prompt,
-                "aspect_ratio": aspect_ratio,
-                "model": model,
-                "magic_prompt_option": "AUTO"
-            }
-        }
-
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, headers=headers, json=payload) as response:
-                response_text = await response.text()
-                print("Ideaogram response:", response_text)
-                if response.status == 200:
-                    data = json.loads(response_text)
-                    #log response_text
-                    logging.debug("Response received: %s", response_text)
-                    # Updated to match actual API response structure
-                    if 'data' in data and len(data['data']) > 0 and 'url' in data['data'][0]:
-                        image_url = data['data'][0]['url']
-                        logging.info("Image generated successfully. URL: %s", image_url)
-                        return image_url
-                    else:
-                        logging.error(f"Ideogram API returned unexpected data structure: {data}")
-                        return None
-                logging.error(f"Failed to generate image. Status: {response.status}, Response: {response_text}")
-                return None
-    except Exception as e:
-        logging.error("An error occurred while generating the image: %s", e)
-        return None
-
-async def get_response(user_input, history_text, bob_system_prompt, discord_channel=None, image_description=None):
-    logger.info("Starting get_response function")
-    tools = [{
-        "type": "function",
-        "function": {
-            "name": "generate_image_ideogram",
-            "description": "Generates an image based on a text prompt using the Ideogram AI API",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "prompt": {
-                        "type": "string",
-                        "description": "Text description of the image to generate"
-                    },
-                    "aspect_ratio": {
-                        "type": "string",
-                        "enum": ["ASPECT_1_1", "ASPECT_16_9", "ASPECT_9_16", "ASPECT_4_3", "ASPECT_3_4", "ASPECT_10_16"],
-                        "description": "The aspect ratio for the generated image"
-                    },
-                    "model": {
-                        "type": "string",
-                        "enum": ["V_1", "V_1_TURBO", "V_2", "V_2_TURBO"],
-                        "description": "The model to use for generation"
-                    }
-                },
-                "required": ["prompt"]
-            }
-        }
-    }]
-
-    messages = [
-        {'role': 'system', 'content': bob_system_prompt},
-        {'role': 'user', 'content': "I hope that clears everything up about who you are?"},
-        {'role': 'assistant', 'content': "It does, thank you so much. I realize now, I am Bob, it all makes sense now."},
-        {'role': 'user', 'content': f'This is a chronological log of the chat you are participating in [start of history]{history_text}.[end of history]'},
-        {'role': 'assistant', 'content': "acknowledged, thank you for providing the chat history."},
-        {'role': 'user', 'content': user_input}
-    ]
-
-    if image_description:
-        logger.debug("Adding image description to messages")
-        messages.append({'role': 'assistant', 'content': image_description})
-
-    try:
-        logger.info("Making initial API call to OpenAI")
-        response = client.chat.completions.create(
-            model='gpt-4o-2024-11-20',
-            messages=messages,
+        logger.info("Making API call to OpenAI using the responses API")
+        response = client.responses.create(
+            model='gpt-4.1-2025-04-14', 
+            input=input_payload,  # Pass the constructed payload
             tools=tools
         )
+
         logger.debug("OpenAI API response: %s", response)
-        print(response)
 
-        message = response.choices[0].message
-        final_response = {"content": "", "image_url": None}
+        # Extract the output text from the response
+        final_response = {"content": "", "image_url": None} # Assuming Bob doesn't generate images himself here
+        ##LOG THIS TO CONSOLE IN GREEN
+        logger.info(f"{Fore.GREEN}OpenAI API response for Bob: {response}{Style.RESET_ALL}") # Added colorama logging
 
-        if message.tool_calls:
-            logger.info("Processing tool calls")
-            for tool_call in message.tool_calls:
-                if tool_call.function.name == "generate_image_ideogram":
-                    function_args = json.loads(tool_call.function.arguments)
-                    prompt = function_args.get("prompt")
-                    aspect_ratio = function_args.get("aspect_ratio", "ASPECT_1_1")
-                    model = function_args.get("model", "V_2")
+        # Process the output which now comes as a list of output items
+        for output_item in response.output:
+            if output_item.type == "message":
+                # Extract text content from message
+                for content_item in output_item.content:
+                    if content_item.type == "output_text":
+                        final_response["content"] = content_item.text
+                        break # Assuming only one text output block per message
 
-                    # Send initial status message
-                    if discord_channel:
-                        await discord_channel.send("Generating your image, please wait...")
+        # If no content was found in the structured output, check for output_text directly (fallback)
+        if not final_response["content"] and hasattr(response, "output_text"):
+            logger.warning("Output found in response.output_text instead of structured output.")
+            final_response["content"] = response.output_text
 
-                    logger.info(f"Attempting to generate image with prompt: {prompt}")
-                    image_url = await generate_image_ideogram(prompt, aspect_ratio, model)
-                    if image_url:
-                        logger.info(f"Successfully generated image with URL: {image_url}")
-                        final_response["image_url"] = image_url
-                        messages.append({
-                            "role": "assistant",
-                            "content": f"I've generated an image for you: {image_url}"
-                        })
-                    else:
-                        logger.warning("Image generation failed or returned no URL")
+        # Bob doesn't generate images in this flow, so image_url remains None
 
-                    logger.info("Getting final completion with image context")
-                    try:
-                        final_completion = client.chat.completions.create(
-                            model='gpt-4o-2024-11-20',
-                            messages=messages
-                        )
-                        final_response["content"] = final_completion.choices[0].message.content
-                        logger.info("Final response prepared successfully")
-                        logger.debug("Final completion: %s", final_completion)
-                        return final_response
-                    except Exception as e:
-                        logger.error("Error getting final completion: %s", e)
-                        raise
-
-        # If no tool calls, return original message
-        logger.info("No tool calls detected, returning original message")
-        final_response["content"] = message.content if message.content else ""
+        logger.info(f"Final response content for Bob: {final_response['content'][:100]}...") # Log snippet
         return final_response
 
     except Exception as e:
-        logger.error("Error in get_response: %s", e, exc_info=True)
+        logger.error("Error in get_response for Bob: %s", e, exc_info=True)
         return {
             "content": "I apologize, but I encountered an error processing your request.",
             "image_url": None
