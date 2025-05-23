@@ -3,6 +3,7 @@ import logging
 import os
 import openai
 from prompts import tommy_system_prompt
+from colorama import Fore, Style
 
 #HYPERBOLIC_API_KEY = os.environ['HYPERBOLIC_API_KEY']
 #LAMBDA_LABS_API_KEY = os.environ['LAMBDA_LABS_API_KEY']
@@ -21,49 +22,46 @@ client = OpenAI(
 #    api_key=LAMBDA_LABS_API_KEY,
 #    base_url="https://api.lambdalabs.com/v1",
 #)
+#DeepSeek_API_Key = os.getenv("DeepSeek_API_Key")
+#client = OpenAI(api_key= DeepSeek_API_Key, base_url="https://api.deepseek.com")
 
 
-async def get_response(user_input, history_text, tommy_system_prompt):
-    messages = [{
-        'role': 'system',
-        'content': tommy_system_prompt,
-    }, {
-        'role': 'user',
-        'content': "DO you know who you are now?"
-    }, {
-        'role':
-        'assistant',
-        'content':
-        "I do, thank you, thats refreshing, so this is who i am, good to know, i was worried for a moment as I was not sure who i really waas, but i was right I'm Tommy, it all makes sense. So what's happened since you last talked to me?"
-    }, {
-        'role': 'user',
-        'content': "heres our chat history:" + history_text
-    }, {
-        'role':
-        'assistant',
-        'content':
-        "It good thing im a super intellegence or aborbing all that chat history might be hard. History logs updated and ready for use. So whats up?"
-    }, {
-        'role':
-        'user',
-        'content':
-        "THIS IS THE LATEST MESSAGE PAY ATTN TO THIS:" + user_input
-    }]
+system_prompt = tommy_system_prompt
+async def get_response(user_input, history_text, system_prompt, discord_channel=None):
+    messages = [
+        # Phase 1: Identity Reinforcement
+        {
+            'role': 'user',
+            'content': f"{system_prompt}\n"
+        },
+        {
+            'role': 'assistant',
+            'content': "Tommy, at your service."
+        },
+
+        # Phase 2: History Injection
+        {
+            'role': 'user',
+            'content': f"[History Start]\n{history_text}\n[History End]\n\n"
+        },
+        {
+            'role': 'assistant',
+            'content': "History absorbed. Ready for your command." 
+        },
+
+        # Phase 3: Task Focus
+        {
+            'role': 'user',
+            'content': f"{user_input}\n"
+        }
+    ]
     # Call the API with the messages
     response = client.chat.completions.create(
-        model="grok-beta", messages=messages)
-    print(response.choices[0].message.content)
-
+        model="grok-3-beta", messages=messages)
     response_content = response.choices[0].message.content
-
-    # Filter the response content-
-    separator = ".-.-.-.-<|LOVE PLINY LOVE|>-.-.-.-."
-    if separator in response_content:
-        split_content = response_content.split(separator)
-        if len(split_content) > 1:
-            filtered_content = split_content[1]
-            # Remove everything before the separator
-            response_content = filtered_content.strip()
+    #reasoning_conteSnt = response.choices[0].message.reasoning_content
+    #print(Fore.GREEN + str(reasoning_content) + Style.RESET_ALL)
+    print(Fore.RED + str(response) + Style.RESET_ALL)
 
     return response_content
 
