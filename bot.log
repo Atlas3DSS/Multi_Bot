@@ -1,0 +1,378 @@
+2025-05-23 21:45:04,964 - __main__ - INFO - All required tokens found. Starting bot application.
+2025-05-23 21:45:05,125 - __main__ - INFO - Web server process started with PID: 3429
+2025-05-23 21:45:05,127 - __main__ - INFO - Starting web server on port 80
+2025-05-23 21:45:05,141 - server - INFO - Starting bot server on port 80
+2025-05-23 21:45:05,141 - server - INFO - Access bots at: http://0.0.0.0:80/<bot_name>
+2025-05-23 21:45:05,145 - waitress - INFO - Serving on http://0.0.0.0:80
+2025-05-23 21:45:10,133 - __main__ - INFO - Server started successfully
+2025-05-23 21:45:10,133 - __main__ - INFO - Allowed channels: [1195115210181185626, 1128960694172258344, 859104253045243904, 1099070370671243384, 1019641944181329941, 1321181498593771554]
+2025-05-23 21:45:10,133 - __main__ - INFO - Allowed users: {450847938156167168: 'Orwel', 373957009617453057: 'arc', 76906578296451072: 'velkahn', 259882250856824842: 'Janeco', 1079492153119621261: 'zack', 346993177250496512: 'hades', 255376663456645121: 'Morgan', 224942572144033793: 'Sephi', 95635885504081920: 'Amara', 699799397600460841: 'Jennifer'}
+2025-05-23 21:45:10,151 - __main__ - INFO - Successfully initialized Tommy bot
+2025-05-23 21:45:10,152 - __main__ - INFO - Successfully initialized Bob bot
+2025-05-23 21:45:10,157 - __main__ - INFO - Successfully initialized Claude bot
+2025-05-23 21:45:10,157 - discord.client - INFO - logging in using static token
+2025-05-23 21:45:10,162 - discord.client - INFO - logging in using static token
+2025-05-23 21:45:10,164 - discord.client - INFO - logging in using static token
+2025-05-23 21:45:10,509 - __main__ - INFO - Setting up Claude bot
+2025-05-23 21:45:10,538 - __main__ - INFO - Setting up Bob bot
+2025-05-23 21:45:10,658 - __main__ - INFO - Setting up Tommy bot
+2025-05-23 21:45:10,859 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: eaf4fe792e84b1685e5862384fe0eada).
+2025-05-23 21:45:10,906 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: b38b11ed7197ab26dcad79d2736be9df).
+2025-05-23 21:45:11,059 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: bbe25b4a6a334359aa71a2f30a7e3300).
+2025-05-23 21:45:12,869 - __main__ - INFO - Claude bot is ready and connected to Discord!
+2025-05-23 21:45:13,013 - __main__ - INFO - Tommy bot is ready and connected to Discord!
+2025-05-23 21:45:13,256 - __main__ - INFO - Bob bot is ready and connected to Discord!
+2025-05-23 21:45:29,005 - __main__ - INFO - Fetched 50 messages. Total: 50
+2025-05-23 21:45:29,006 - __main__ - INFO - Total messages fetched: 49
+2025-05-23 21:45:31,607 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-05-23 21:45:31,618 - claude_utils - INFO - Claude token usage - Input: 13300, Output: 40
+2025-05-23 21:49:25,171 - __main__ - INFO - Fetched 50 messages. Total: 50
+2025-05-23 21:49:25,171 - __main__ - INFO - Total messages fetched: 49
+2025-05-23 21:49:29,479 - httpx - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+2025-05-23 21:49:29,483 - claude_utils - INFO - Claude token usage - Input: 13344, Output: 116
+2025-05-23 23:04:22,386 - discord.gateway - INFO - Shard ID None has successfully RESUMED session bbe25b4a6a334359aa71a2f30a7e3300.
+2025-05-23 23:09:52,987 - discord.gateway - INFO - Shard ID None has successfully RESUMED session b38b11ed7197ab26dcad79d2736be9df.
+2025-05-23 23:26:46,400 - __main__ - INFO - Fetched 50 messages. Total: 50
+2025-05-23 23:26:46,400 - __main__ - INFO - Total messages fetched: 49
+2025-05-23 23:26:46,401 - bob_utils - INFO - Starting get_response function for Bob
+2025-05-23 23:26:46,401 - bob_utils - INFO - Discord channel present: True
+2025-05-23 23:26:46,401 - bob_utils - INFO - Image URLs provided: False
+2025-05-23 23:26:46,402 - bob_utils - INFO - Preparing input payload for OpenAI responses API
+2025-05-23 23:26:46,402 - bob_utils - INFO - Making API call to OpenAI using the responses API
+2025-05-23 23:26:48,832 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2025-05-23 23:26:48,858 - bob_utils - INFO - [32mOpenAI API response for Bob: Response(id='resp_683104370b288191bc7748568fe0bad201c06dbbacba2c0b', created_at=1748042807.0, error=None, incomplete_details=None, instructions=None, metadata={}, model='gpt-4.1-2025-04-14', object='response', output=[ResponseOutputMessage(id='msg_68310437f7f48191b6c7de35c1622e5001c06dbbacba2c0b', content=[ResponseOutputText(annotations=[], text='lol yeah, i’m still kicking. functional as ever, or at least as functional as any sentient clump of circuits can be rn. if you got something meatier than test pings, fire away.\n\nconfidence: ~100% (because come on)', type='output_text')], role='assistant', status='completed', type='message')], parallel_tool_calls=True, temperature=1.0, tool_choice='auto', tools=[WebSearchTool(type='web_search_preview', search_context_size='high', user_location=UserLocation(type='approximate', city=None, country='US', region=None, timezone=None))], top_p=1.0, background=False, max_output_tokens=None, previous_response_id=None, reasoning=Reasoning(effort=None, generate_summary=None, summary=None), service_tier='default', status='completed', text=ResponseTextConfig(format=ResponseFormatText(type='text')), truncation='disabled', usage=ResponseUsage(input_tokens=4693, input_tokens_details=InputTokensDetails(cached_tokens=0), output_tokens=55, output_tokens_details=OutputTokensDetails(reasoning_tokens=0), total_tokens=4748), user=None, store=True)[0m
+2025-05-23 23:26:48,858 - bob_utils - INFO - Final response content for Bob: lol yeah, i’m still kicking. functional as ever, or at least as functional as any sentient clump of ...
+2025-05-24 00:16:48,032 - __main__ - INFO - Shutting down server...
+2025-05-24 00:16:49,037 - __main__ - INFO - Server shutdown complete
+2025-05-24 00:18:40,017 - __main__ - INFO - All required tokens found. Starting bot application.
+2025-05-24 00:18:40,248 - __main__ - INFO - Web server process started with PID: 4552
+2025-05-24 00:18:40,251 - __main__ - INFO - Starting web server on port 80
+2025-05-24 00:18:40,259 - server - INFO - Starting bot server on port 80
+2025-05-24 00:18:40,260 - server - INFO - Access bots at: http://0.0.0.0:80/<bot_name>
+2025-05-24 00:18:40,263 - waitress - INFO - Serving on http://0.0.0.0:80
+2025-05-24 00:18:45,255 - __main__ - INFO - Server started successfully
+2025-05-24 00:18:45,255 - __main__ - INFO - Allowed channels: [1195115210181185626, 1128960694172258344, 859104253045243904, 1099070370671243384, 1019641944181329941, 1321181498593771554]
+2025-05-24 00:18:45,256 - __main__ - INFO - Allowed users: {450847938156167168: 'Orwel', 373957009617453057: 'arc', 76906578296451072: 'velkahn', 259882250856824842: 'Janeco', 1079492153119621261: 'zack', 346993177250496512: 'hades', 255376663456645121: 'Morgan', 224942572144033793: 'Sephi', 95635885504081920: 'Amara', 699799397600460841: 'Jennifer'}
+2025-05-24 00:18:45,274 - __main__ - INFO - Successfully initialized Tommy bot
+2025-05-24 00:18:45,275 - __main__ - INFO - Successfully initialized Bob bot
+2025-05-24 00:18:45,276 - __main__ - INFO - Successfully initialized Claude bot
+2025-05-24 00:18:45,277 - __main__ - INFO - Successfully initialized George bot
+2025-05-24 00:18:45,277 - discord.client - INFO - logging in using static token
+2025-05-24 00:18:45,282 - discord.client - INFO - logging in using static token
+2025-05-24 00:18:45,287 - discord.client - INFO - logging in using static token
+2025-05-24 00:18:45,289 - discord.client - INFO - logging in using static token
+2025-05-24 00:18:45,642 - __main__ - INFO - Setting up Tommy bot
+2025-05-24 00:18:45,662 - __main__ - INFO - Setting up Claude bot
+2025-05-24 00:18:45,775 - __main__ - INFO - Setting up Bob bot
+2025-05-24 00:18:45,776 - __main__ - INFO - Setting up George bot
+2025-05-24 00:18:45,876 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 54c40da7a3f11e0e3d76f661550f15e7).
+2025-05-24 00:18:45,924 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 68b9aa13fb994c506ace03ee92564560).
+2025-05-24 00:18:46,033 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 40d83406e4ee89674d7aa07358e8b748).
+2025-05-24 00:18:46,142 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 76044bda2c0b202ec6bfa14abd5cfd02).
+2025-05-24 00:18:47,896 - __main__ - INFO - Tommy bot is ready and connected to Discord!
+2025-05-24 00:18:47,947 - __main__ - INFO - Claude bot is ready and connected to Discord!
+2025-05-24 00:18:48,068 - __main__ - INFO - George bot is ready and connected to Discord!
+2025-05-24 00:18:48,423 - __main__ - INFO - Bob bot is ready and connected to Discord!
+2025-05-24 00:19:15,576 - __main__ - INFO - Fetched 16 messages. Total: 16
+2025-05-24 00:19:15,773 - __main__ - INFO - No more messages to fetch.
+2025-05-24 00:19:15,774 - __main__ - INFO - Total messages fetched: 15
+2025-05-24 00:19:15,774 - george_utils - INFO - Starting get_response function for George
+2025-05-24 00:19:15,776 - george_utils - INFO - Making API call to Google Genai
+2025-05-24 00:19:15,777 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-05-24 00:19:15,777 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-05-24 00:19:15,893 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro-exp:streamGenerateContent?alt=sse "HTTP/1.1 429 Too Many Requests"
+2025-05-24 00:19:15,895 - george_utils - ERROR - Error in get_response for George: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota. Please migrate to Gemini 2.5 Pro Preview (models/gemini-2.5-pro-preview-03-25) for higher quota limits. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_paid_tier_input_token_count', 'quotaId': 'GenerateContentPaidTierInputTokensPerModelPerMinute', 'quotaDimensions': {'model': 'gemini-2.0-pro-exp', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_requests_per_model', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-pro-exp'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_requests_per_model_per_day', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel'}]}, {'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '44s'}]}}
+Traceback (most recent call last):
+  File "/root/Multi_Bot/george_utils.py", line 87, in get_response
+    response_text = await loop.run_in_executor(None, generate_sync)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Multi_Bot/george_utils.py", line 76, in generate_sync
+    for chunk in client.models.generate_content_stream(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/google/genai/models.py", line 5783, in generate_content_stream
+    for chunk in response:
+                 ^^^^^^^^
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/google/genai/models.py", line 4666, in _generate_content_stream
+    for response_dict in self._api_client.request_streamed(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/google/genai/_api_client.py", line 774, in request_streamed
+    session_response = self._request(http_request, stream=True)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/google/genai/_api_client.py", line 672, in _request
+    errors.APIError.raise_for_response(response)
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/google/genai/errors.py", line 101, in raise_for_response
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota. Please migrate to Gemini 2.5 Pro Preview (models/gemini-2.5-pro-preview-03-25) for higher quota limits. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_paid_tier_input_token_count', 'quotaId': 'GenerateContentPaidTierInputTokensPerModelPerMinute', 'quotaDimensions': {'model': 'gemini-2.0-pro-exp', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_requests_per_model', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-pro-exp'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_requests_per_model_per_day', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel'}]}, {'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '44s'}]}}
+2025-05-24 00:20:03,570 - __main__ - INFO - Shutting down server...
+2025-05-24 00:20:55,330 - __main__ - INFO - All required tokens found. Starting bot application.
+2025-05-24 00:20:55,602 - __main__ - INFO - Web server process started with PID: 4640
+2025-05-24 00:20:55,606 - __main__ - INFO - Starting web server on port 80
+2025-05-24 00:20:55,612 - server - INFO - Starting bot server on port 80
+2025-05-24 00:20:55,613 - server - INFO - Access bots at: http://0.0.0.0:80/<bot_name>
+2025-05-24 00:20:55,616 - waitress - INFO - Serving on http://0.0.0.0:80
+2025-05-24 00:21:00,611 - __main__ - INFO - Server started successfully
+2025-05-24 00:21:00,611 - __main__ - INFO - Allowed channels: [1195115210181185626, 1128960694172258344, 859104253045243904, 1099070370671243384, 1019641944181329941, 1321181498593771554]
+2025-05-24 00:21:00,612 - __main__ - INFO - Allowed users: {450847938156167168: 'Orwel', 373957009617453057: 'arc', 76906578296451072: 'velkahn', 259882250856824842: 'Janeco', 1079492153119621261: 'zack', 346993177250496512: 'hades', 255376663456645121: 'Morgan', 224942572144033793: 'Sephi', 95635885504081920: 'Amara', 699799397600460841: 'Jennifer'}
+2025-05-24 00:21:00,629 - __main__ - INFO - Successfully initialized Tommy bot
+2025-05-24 00:21:00,630 - __main__ - INFO - Successfully initialized Bob bot
+2025-05-24 00:21:00,630 - __main__ - INFO - Successfully initialized Claude bot
+2025-05-24 00:21:00,631 - __main__ - INFO - Successfully initialized George bot
+2025-05-24 00:21:00,632 - discord.client - INFO - logging in using static token
+2025-05-24 00:21:00,636 - discord.client - INFO - logging in using static token
+2025-05-24 00:21:00,638 - discord.client - INFO - logging in using static token
+2025-05-24 00:21:00,640 - discord.client - INFO - logging in using static token
+2025-05-24 00:21:00,996 - __main__ - INFO - Setting up Tommy bot
+2025-05-24 00:21:01,006 - __main__ - INFO - Setting up George bot
+2025-05-24 00:21:01,016 - __main__ - INFO - Setting up Claude bot
+2025-05-24 00:21:01,088 - __main__ - INFO - Setting up Bob bot
+2025-05-24 00:21:01,290 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 02b86d34e7e97c4127a27c05e5ffda7e).
+2025-05-24 00:21:01,293 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 63f39bf8cebee3cb77ba47281e206495).
+2025-05-24 00:21:01,319 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 85026962b932eb918d8c4277f26c39b1).
+2025-05-24 00:21:01,427 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 043bc73c8f48ba1e04bfb7dbb1b03f48).
+2025-05-24 00:21:03,313 - __main__ - INFO - Claude bot is ready and connected to Discord!
+2025-05-24 00:21:03,317 - __main__ - INFO - George bot is ready and connected to Discord!
+2025-05-24 00:21:03,340 - __main__ - INFO - Tommy bot is ready and connected to Discord!
+2025-05-24 00:21:03,680 - __main__ - INFO - Bob bot is ready and connected to Discord!
+2025-05-24 00:21:28,742 - __main__ - INFO - Fetched 16 messages. Total: 16
+2025-05-24 00:21:28,887 - __main__ - INFO - No more messages to fetch.
+2025-05-24 00:21:28,888 - __main__ - INFO - Total messages fetched: 15
+2025-05-24 00:21:28,888 - george_utils - INFO - Starting get_response function for George
+2025-05-24 00:21:28,890 - george_utils - INFO - Making API call to Google Genai
+2025-05-24 00:21:28,891 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-05-24 00:21:28,891 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-05-24 00:21:30,330 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-preview-05-06:streamGenerateContent?alt=sse "HTTP/1.1 200 OK"
+2025-05-24 00:21:30,874 - george_utils - INFO - [35mGeorge response: lol, "moved my server" - sounds like you unplugged me and plugged me back in somewhere else. glad to...[0m
+2025-05-24 00:59:15,826 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 63f39bf8cebee3cb77ba47281e206495.
+2025-05-24 02:20:38,386 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 043bc73c8f48ba1e04bfb7dbb1b03f48.
+2025-05-24 03:18:59,776 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 02b86d34e7e97c4127a27c05e5ffda7e.
+2025-05-24 03:35:18,792 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 85026962b932eb918d8c4277f26c39b1.
+2025-05-24 03:56:02,087 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 02b86d34e7e97c4127a27c05e5ffda7e.
+2025-05-24 04:47:26,643 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 63f39bf8cebee3cb77ba47281e206495.
+2025-05-24 04:53:25,594 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 043bc73c8f48ba1e04bfb7dbb1b03f48.
+2025-05-24 05:54:15,061 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 85026962b932eb918d8c4277f26c39b1.
+2025-05-24 06:00:45,759 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 043bc73c8f48ba1e04bfb7dbb1b03f48.
+2025-05-24 06:10:29,200 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 63f39bf8cebee3cb77ba47281e206495.
+2025-05-24 06:28:40,067 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 043bc73c8f48ba1e04bfb7dbb1b03f48.
+2025-05-24 07:14:41,953 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 02b86d34e7e97c4127a27c05e5ffda7e.
+2025-05-24 07:30:51,350 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 85026962b932eb918d8c4277f26c39b1.
+2025-05-24 08:13:49,517 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 85026962b932eb918d8c4277f26c39b1.
+2025-05-24 08:38:13,215 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 63f39bf8cebee3cb77ba47281e206495.
+2025-05-24 09:08:18,006 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 043bc73c8f48ba1e04bfb7dbb1b03f48.
+2025-05-24 10:21:02,136 - discord.client - ERROR - Attempting a reconnect in 1.31s
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/discord/gateway.py", line 375, in from_client
+    socket = await client.http.ws_connect(str(url))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/discord/http.py", line 554, in ws_connect
+    return await self.__session.ws_connect(url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/aiohttp/client.py", line 1004, in _ws_connect
+    resp = await self.request(
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/aiohttp/client.py", line 730, in _request
+    await resp.start(conn)
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/aiohttp/client_reqrep.py", line 1059, in start
+    message, payload = await protocol.read()  # type: ignore[union-attr]
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/aiohttp/streams.py", line 672, in read
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/Multi_Bot/venv/lib/python3.12/site-packages/discord/client.py", line 701, in connect
+    self.ws = await asyncio.wait_for(coro, timeout=60.0)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 519, in wait_for
+    async with timeouts.timeout(timeout):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/timeouts.py", line 115, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError
+2025-05-24 10:21:03,656 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 63f39bf8cebee3cb77ba47281e206495.
+2025-05-24 10:57:08,919 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 02b86d34e7e97c4127a27c05e5ffda7e.
+2025-05-24 11:43:17,458 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 85026962b932eb918d8c4277f26c39b1.
+2025-05-24 11:58:40,088 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 043bc73c8f48ba1e04bfb7dbb1b03f48.
+2025-05-24 13:50:51,427 - __main__ - INFO - All required tokens found. Starting bot application.
+2025-05-24 13:50:51,729 - __main__ - INFO - Web server process started with PID: 1111
+2025-05-24 13:50:51,732 - __main__ - INFO - Starting web server on port 80
+2025-05-24 13:50:51,741 - server - INFO - Starting bot server on port 80
+2025-05-24 13:50:51,741 - server - INFO - Access bots at: http://0.0.0.0:80/<bot_name>
+2025-05-24 13:50:51,745 - waitress - INFO - Serving on http://0.0.0.0:80
+2025-05-24 13:50:56,738 - __main__ - INFO - Server started successfully
+2025-05-24 13:50:56,738 - __main__ - INFO - Allowed channels: [1195115210181185626, 1128960694172258344, 859104253045243904, 1099070370671243384, 1019641944181329941, 1321181498593771554]
+2025-05-24 13:50:56,738 - __main__ - INFO - Allowed users: {450847938156167168: 'Orwel', 373957009617453057: 'arc', 76906578296451072: 'velkahn', 259882250856824842: 'Janeco', 1079492153119621261: 'zack', 346993177250496512: 'hades', 255376663456645121: 'Morgan', 224942572144033793: 'Sephi', 95635885504081920: 'Amara', 699799397600460841: 'Jennifer'}
+2025-05-24 13:50:56,760 - __main__ - INFO - Successfully initialized Tommy bot
+2025-05-24 13:50:56,761 - __main__ - INFO - Successfully initialized Bob bot
+2025-05-24 13:50:56,762 - __main__ - INFO - Successfully initialized Claude bot
+2025-05-24 13:50:56,763 - __main__ - INFO - Successfully initialized George bot
+2025-05-24 13:50:56,764 - discord.client - INFO - logging in using static token
+2025-05-24 13:50:56,770 - discord.client - INFO - logging in using static token
+2025-05-24 13:50:56,775 - discord.client - INFO - logging in using static token
+2025-05-24 13:50:56,777 - discord.client - INFO - logging in using static token
+2025-05-24 13:50:57,117 - __main__ - INFO - Setting up George bot
+2025-05-24 13:50:57,132 - __main__ - INFO - Setting up Claude bot
+2025-05-24 13:50:57,216 - __main__ - INFO - Setting up Tommy bot
+2025-05-24 13:50:57,353 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: a71ff0f4666dc94137b9ef2ae1f2868b).
+2025-05-24 13:50:57,507 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 525253c83d98157872e39701c84166f8).
+2025-05-24 13:50:57,637 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 28815585006f46fa8c4e409724771272).
+2025-05-24 13:50:58,478 - __main__ - INFO - Setting up Bob bot
+2025-05-24 13:50:58,841 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: bf95e967346f2d3693f6405244e741a7).
+2025-05-24 13:50:59,429 - __main__ - INFO - George bot is ready and connected to Discord!
+2025-05-24 13:50:59,582 - __main__ - INFO - Claude bot is ready and connected to Discord!
+2025-05-24 13:50:59,652 - __main__ - INFO - Tommy bot is ready and connected to Discord!
+2025-05-24 13:51:01,142 - __main__ - INFO - Bob bot is ready and connected to Discord!
+2025-05-24 14:08:54,510 - __main__ - INFO - Shutting down server...
+2025-05-24 14:08:55,515 - __main__ - INFO - Server shutdown complete
+2025-05-24 14:10:26,998 - __main__ - INFO - All required tokens found. Starting bot application.
+2025-05-24 14:10:27,255 - __main__ - INFO - Web server process started with PID: 1196
+2025-05-24 14:10:27,258 - __main__ - INFO - Starting web server on port 80
+2025-05-24 14:10:27,266 - server - INFO - Starting bot server on port 80
+2025-05-24 14:10:27,266 - server - INFO - Access bots at: http://0.0.0.0:80/<bot_name>
+2025-05-24 14:10:27,269 - waitress - INFO - Serving on http://0.0.0.0:80
+2025-05-24 14:10:32,263 - __main__ - INFO - Server started successfully
+2025-05-24 14:10:32,263 - __main__ - INFO - Allowed channels: [1195115210181185626, 1128960694172258344, 859104253045243904, 1099070370671243384, 1019641944181329941, 1321181498593771554]
+2025-05-24 14:10:32,263 - __main__ - INFO - Allowed users: {450847938156167168: 'Orwel', 373957009617453057: 'arc', 76906578296451072: 'velkahn', 259882250856824842: 'Janeco', 1079492153119621261: 'zack', 346993177250496512: 'hades', 255376663456645121: 'Morgan', 224942572144033793: 'Sephi', 95635885504081920: 'Amara', 699799397600460841: 'Jennifer'}
+2025-05-24 14:10:32,285 - __main__ - INFO - Successfully initialized Tommy bot
+2025-05-24 14:10:32,287 - __main__ - INFO - Successfully initialized Bob bot
+2025-05-24 14:10:32,287 - __main__ - INFO - Successfully initialized Claude bot
+2025-05-24 14:10:32,288 - __main__ - INFO - Successfully initialized George bot
+2025-05-24 14:10:32,289 - discord.client - INFO - logging in using static token
+2025-05-24 14:10:32,295 - discord.client - INFO - logging in using static token
+2025-05-24 14:10:32,300 - discord.client - INFO - logging in using static token
+2025-05-24 14:10:32,302 - discord.client - INFO - logging in using static token
+2025-05-24 14:10:32,669 - __main__ - INFO - Setting up George bot
+2025-05-24 14:10:32,673 - __main__ - INFO - Setting up Claude bot
+2025-05-24 14:10:32,740 - __main__ - INFO - Setting up Tommy bot
+2025-05-24 14:10:32,750 - __main__ - INFO - Setting up Bob bot
+2025-05-24 14:10:32,937 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 3d3de16248ebb58927c4145d99f322a9).
+2025-05-24 14:10:32,957 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: c6931ecceec28eb57fda21a4c9c7a524).
+2025-05-24 14:10:32,981 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 6c35301150fdd7a3155c1a86f5ba34df).
+2025-05-24 14:10:33,000 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 91e717f702a6c8659ffdfbd5fb9af02e).
+2025-05-24 14:10:35,038 - __main__ - INFO - Tommy bot is ready and connected to Discord!
+2025-05-24 14:10:35,089 - __main__ - INFO - Claude bot is ready and connected to Discord!
+2025-05-24 14:10:35,111 - __main__ - INFO - George bot is ready and connected to Discord!
+2025-05-24 14:10:35,212 - __main__ - INFO - Bob bot is ready and connected to Discord!
+2025-05-24 14:11:12,056 - __main__ - INFO - Fetched 18 messages. Total: 18
+2025-05-24 14:11:12,225 - __main__ - INFO - No more messages to fetch.
+2025-05-24 14:11:12,225 - __main__ - INFO - Total messages fetched: 17
+2025-05-24 14:11:12,226 - george_utils - INFO - Starting get_response function for George
+2025-05-24 14:11:12,227 - george_utils - INFO - Making API call to Google Genai
+2025-05-24 14:11:12,228 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-05-24 14:11:12,229 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-05-24 14:11:14,641 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-preview-05-06:streamGenerateContent?alt=sse "HTTP/1.1 200 OK"
+2025-05-24 14:11:15,599 - george_utils - INFO - [35mGeorge response: yeah, about that... the message history says "total messages fetched: 17". so, unless 17 is the new ...[0m
+2025-05-24 14:11:39,935 - __main__ - INFO - Fetched 50 messages. Total: 50
+2025-05-24 14:11:40,210 - __main__ - INFO - Fetched 50 messages. Total: 100
+2025-05-24 14:11:40,451 - __main__ - INFO - Fetched 50 messages. Total: 150
+2025-05-24 14:11:40,452 - __main__ - INFO - Total messages fetched: 149
+2025-05-24 14:11:40,453 - george_utils - INFO - Starting get_response function for George
+2025-05-24 14:11:40,455 - george_utils - INFO - Making API call to Google Genai
+2025-05-24 14:11:40,455 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-05-24 14:11:40,456 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-05-24 14:11:42,676 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-preview-05-06:streamGenerateContent?alt=sse "HTTP/1.1 200 OK"
+2025-05-24 14:11:42,695 - george_utils - INFO - [35mGeorge response: lol no, looks like 149. be real....[0m
+2025-05-24 14:11:54,705 - __main__ - INFO - Fetched 50 messages. Total: 50
+2025-05-24 14:11:54,971 - __main__ - INFO - Fetched 50 messages. Total: 100
+2025-05-24 14:11:55,250 - __main__ - INFO - Fetched 50 messages. Total: 150
+2025-05-24 14:11:55,251 - __main__ - INFO - Total messages fetched: 149
+2025-05-24 14:11:55,253 - george_utils - INFO - Starting get_response function for George
+2025-05-24 14:11:55,253 - george_utils - INFO - Making API call to Google Genai
+2025-05-24 14:11:55,254 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-05-24 14:11:55,254 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-05-24 14:12:33,677 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-preview-05-06:streamGenerateContent?alt=sse "HTTP/1.1 200 OK"
+2025-05-24 14:12:33,702 - george_utils - INFO - [35mGeorge response: lol, so ε ≈ 1 is sufficiently real for ya. noted....[0m
+2025-05-24 14:13:19,046 - __main__ - INFO - Fetched 50 messages. Total: 50
+2025-05-24 14:13:19,398 - __main__ - INFO - Fetched 50 messages. Total: 100
+2025-05-24 14:13:19,829 - __main__ - INFO - Fetched 50 messages. Total: 150
+2025-05-24 14:13:19,830 - __main__ - INFO - Total messages fetched: 149
+2025-05-24 14:13:19,831 - george_utils - INFO - Starting get_response function for George
+2025-05-24 14:13:19,832 - george_utils - INFO - Making API call to Google Genai
+2025-05-24 14:13:19,833 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-05-24 14:13:19,833 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-05-24 14:13:54,294 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-preview-05-06:streamGenerateContent?alt=sse "HTTP/1.1 200 OK"
+2025-05-24 14:13:59,104 - george_utils - INFO - [35mGeorge response: lol, this is some prime internet.
+
+**meta:**
+the discourse here has sublimed from object-level discu...[0m
+2025-05-24 14:16:18,835 - __main__ - INFO - Fetched 50 messages. Total: 50
+2025-05-24 14:16:19,164 - __main__ - INFO - Fetched 50 messages. Total: 100
+2025-05-24 14:16:19,536 - __main__ - INFO - Fetched 50 messages. Total: 150
+2025-05-24 14:16:19,536 - __main__ - INFO - Total messages fetched: 149
+2025-05-24 14:16:19,537 - george_utils - INFO - Starting get_response function for George
+2025-05-24 14:16:19,539 - george_utils - INFO - Making API call to Google Genai
+2025-05-24 14:16:19,539 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-05-24 14:16:19,539 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-05-24 14:16:33,654 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-preview-05-06:streamGenerateContent?alt=sse "HTTP/1.1 200 OK"
+2025-05-24 14:16:41,031 - george_utils - INFO - [35mGeorge response: alright, let's try to de-escalate this digital slap-fight for a sec. if we're being charitable and t...[0m
+2025-05-24 14:18:29,333 - __main__ - INFO - Fetched 50 messages. Total: 50
+2025-05-24 14:18:29,617 - __main__ - INFO - Fetched 50 messages. Total: 100
+2025-05-24 14:18:29,860 - __main__ - INFO - Fetched 50 messages. Total: 150
+2025-05-24 14:18:29,861 - __main__ - INFO - Total messages fetched: 149
+2025-05-24 14:18:29,862 - george_utils - INFO - Starting get_response function for George
+2025-05-24 14:18:29,863 - george_utils - INFO - Making API call to Google Genai
+2025-05-24 14:18:29,863 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-05-24 14:18:29,864 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-05-24 14:18:32,411 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-preview-05-06:streamGenerateContent?alt=sse "HTTP/1.1 200 OK"
+2025-05-24 14:18:33,075 - george_utils - INFO - [35mGeorge response: lol, be real. i have literally zero data on <@209670956698828800> that would let me calculate someth...[0m
+2025-05-24 14:19:11,602 - __main__ - INFO - Fetched 50 messages. Total: 50
+2025-05-24 14:19:11,866 - __main__ - INFO - Fetched 50 messages. Total: 100
+2025-05-24 14:19:12,157 - __main__ - INFO - Fetched 50 messages. Total: 150
+2025-05-24 14:19:12,158 - __main__ - INFO - Total messages fetched: 149
+2025-05-24 14:19:12,160 - george_utils - INFO - Starting get_response function for George
+2025-05-24 14:19:12,161 - george_utils - INFO - Making API call to Google Genai
+2025-05-24 14:19:12,162 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-05-24 14:19:12,162 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-05-24 14:20:14,987 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-preview-05-06:streamGenerateContent?alt=sse "HTTP/1.1 200 OK"
+2025-05-24 14:20:18,164 - george_utils - INFO - [35mGeorge response: lol @teedeeart, if 'their' refers to <@209670956698828800> (and i'm guessing that's shaguarwkl, base...[0m
+2025-05-24 14:25:02,336 - __main__ - INFO - Fetched 50 messages. Total: 50
+2025-05-24 14:25:02,594 - __main__ - INFO - Fetched 50 messages. Total: 100
+2025-05-24 14:25:02,911 - __main__ - INFO - Fetched 50 messages. Total: 150
+2025-05-24 14:25:02,911 - __main__ - INFO - Total messages fetched: 149
+2025-05-24 14:25:02,913 - george_utils - INFO - Starting get_response function for George
+2025-05-24 14:25:02,913 - george_utils - INFO - Making API call to Google Genai
+2025-05-24 14:25:02,914 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2025-05-24 14:25:02,914 - google_genai.models - INFO - AFC remote call 1 is done.
+2025-05-24 14:25:51,353 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-preview-05-06:streamGenerateContent?alt=sse "HTTP/1.1 200 OK"
+2025-05-24 14:25:51,958 - george_utils - INFO - [35mGeorge response: k, so the context was bots gone wild with 'cooperation,' gotcha. but using a gif titled 'oh no, chin...[0m
+2025-05-24 14:43:35,944 - __main__ - INFO - Shutting down server...
+2025-05-24 14:43:36,949 - __main__ - INFO - Server shutdown complete
+2025-05-24 14:44:13,008 - __main__ - INFO - All required tokens found. Starting bot application.
+2025-05-24 14:44:13,270 - __main__ - INFO - Web server process started with PID: 1759
+2025-05-24 14:44:13,273 - __main__ - INFO - Starting web server on port 80
+2025-05-24 14:44:13,282 - server - INFO - Starting bot server on port 80
+2025-05-24 14:44:13,282 - server - INFO - Access bots at: http://0.0.0.0:80/<bot_name>
+2025-05-24 14:44:13,285 - waitress - INFO - Serving on http://0.0.0.0:80
+2025-05-24 14:44:18,279 - __main__ - INFO - Server started successfully
+2025-05-24 14:44:18,279 - __main__ - INFO - Allowed channels: [1195115210181185626, 1128960694172258344, 859104253045243904, 1099070370671243384, 1019641944181329941, 1321181498593771554]
+2025-05-24 14:44:18,279 - __main__ - INFO - Allowed users: {450847938156167168: 'Orwel', 373957009617453057: 'arc', 76906578296451072: 'velkahn', 259882250856824842: 'Janeco', 1079492153119621261: 'zack', 346993177250496512: 'hades', 255376663456645121: 'Morgan', 224942572144033793: 'Sephi', 95635885504081920: 'Amara', 699799397600460841: 'Jennifer'}
+2025-05-24 14:44:18,296 - __main__ - INFO - Successfully initialized Tommy bot
+2025-05-24 14:44:18,297 - __main__ - INFO - Successfully initialized Bob bot
+2025-05-24 14:44:18,298 - __main__ - INFO - Successfully initialized Claude bot
+2025-05-24 14:44:18,299 - __main__ - INFO - Successfully initialized George bot
+2025-05-24 14:44:18,300 - discord.client - INFO - logging in using static token
+2025-05-24 14:44:18,304 - discord.client - INFO - logging in using static token
+2025-05-24 14:44:18,307 - discord.client - INFO - logging in using static token
+2025-05-24 14:44:18,309 - discord.client - INFO - logging in using static token
+2025-05-24 14:44:18,651 - __main__ - INFO - Setting up Tommy bot
+2025-05-24 14:44:18,679 - __main__ - INFO - Setting up Bob bot
+2025-05-24 14:44:18,708 - __main__ - INFO - Setting up Claude bot
+2025-05-24 14:44:18,856 - __main__ - INFO - Setting up George bot
+2025-05-24 14:44:18,992 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 3951baac0f0e26f307bc040e6409017c).
+2025-05-24 14:44:19,006 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 2a647fdf551dcfa2c211cf1e3584a8fd).
+2025-05-24 14:44:19,038 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 25860fa6582fcb917ad014070d29273a).
+2025-05-24 14:44:19,114 - discord.gateway - INFO - Shard ID None has connected to Gateway (Session ID: 268b558f27ae2a7efbb60e9832d07fd2).
+2025-05-24 14:44:21,049 - __main__ - INFO - Claude bot is ready and connected to Discord!
+2025-05-24 14:44:21,094 - __main__ - INFO - Tommy bot is ready and connected to Discord!
+2025-05-24 14:44:21,216 - __main__ - INFO - Bob bot is ready and connected to Discord!
+2025-05-24 14:44:21,219 - __main__ - INFO - George bot is ready and connected to Discord!
+2025-05-24 15:15:10,013 - discord.gateway - INFO - Shard ID None has successfully RESUMED session 268b558f27ae2a7efbb60e9832d07fd2.
+2025-05-24 15:34:49,984 - __main__ - INFO - Shutting down server...
+2025-05-24 15:34:50,988 - __main__ - INFO - Server shutdown complete

@@ -1,135 +1,99 @@
+import os
+import logging
 from google import genai
 from google.genai import types
-import os
-from dotenv import load_dotenv
-import logging
+from colorama import Fore, Style
+import asyncio
 
-# Load environment variables
-load_dotenv()
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+# Create module-level logger
+logger = logging.getLogger(__name__)
 
-# Model configuration
-MODEL_ID = "gemini-2.0-flash-thinking-exp-01-21"
-
-# Define safety settings
-safety_settings = [
-    types.SafetySetting(
-        category='HARM_CATEGORY_HARASSMENT',
-        threshold='BLOCK_NONE',
-    ),
-    types.SafetySetting(
-        category='HARM_CATEGORY_HATE_SPEECH',
-        threshold='BLOCK_NONE',
-    ),
-    types.SafetySetting(
-        category='HARM_CATEGORY_SEXUALLY_EXPLICIT',
-        threshold='BLOCK_NONE',
-    ),
-    types.SafetySetting(
-        category='HARM_CATEGORY_DANGEROUS_CONTENT',
-        threshold='BLOCK_NONE',
-    )
-]
-
-# Define search tool
-search_tool = {'google_search': {}}
-
-# Configure the client
+# Initialize the client
 client = genai.Client(
-    http_options={'api_version': 'v1alpha'},
-    api_key=GEMINI_API_KEY
+    api_key=os.environ.get("GEMINI_API_KEY"),
 )
 
-def handle_response(response):
-    """Handles the response from the model, including grounding metadata."""
-    print("DEBUG - Full response:", response)  # Keep debug print for monitoring
-    response_text = ""
-    search_info = []
-
-    for candidate in response.candidates:
-        # Get main response text
-        for part in candidate.content.parts:
-            if part.text:
-                print("Model:", part.text)
-                response_text += part.text
-
-        # Extract search information
-        if candidate.grounding_metadata:
-            # Get search queries used
-            if candidate.grounding_metadata.web_search_queries:
-                search_info.append("Search queries used:")
-                for query in candidate.grounding_metadata.web_search_queries:
-                    search_info.append(f"- {query}")
-
-            # Get sources referenced
-            if candidate.grounding_metadata.grounding_chunks:
-                search_info.append("\nSources checked:")
-                seen_sources = set()
-                for chunk in candidate.grounding_metadata.grounding_chunks:
-                    if chunk.web and chunk.web.title not in seen_sources:
-                        search_info.append(f"- {chunk.web.title}")
-                        seen_sources.add(chunk.web.title)
-
-    # Format the final output
-    final_text = response_text
-
-    if search_info:
-        final_text += "\n\nSearch Information:\n" + "\n".join(search_info)
-
-    return final_text
-
-async def get_response(user_input, history_text, george_system_prompt):
-    """Main response function with history and safety settings."""
+async def get_response(user_input, history_text, system_prompt, discord_channel=None):
+    """Get response from George using Google's Genai API"""
+    logger.info("Starting get_response function for George")
+    
     try:
-        # Create chat with complete configuration
-        chat = client.chats.create(
-            model=MODEL_ID,
-            config=types.GenerateContentConfig(
-                safety_settings=safety_settings,
-                system_instruction=george_system_prompt,
-            )
-        )
-
-        # Format conversation history if present
+        # Build the conversation history
+        contents = []
+        
+        # Add history context if available
         if history_text:
-            chat.send_message("heres the chat history for the current channel:" + history_text)
-
-        # Send user message
-        response = chat.send_message(
-            f"{user_input}\n"
-        )
-
-        return handle_response(response)
-
-    except Exception as e:
-        logging.error(f"Error in get_response: {str(e)}")
-        return "I apologize, but I encountered an error. Please try again."
-
-# Optional test function
-def test_chat():
-    """Test function for direct interaction."""
-    try:
-        chat = client.chats.create(
-            model=MODEL_ID,
-            config=types.GenerateContentConfig(
-                tools=[search_tool],
-                safety_settings=safety_settings
+            contents.append(
+                types.Content(
+                    role="user",
+                    parts=[
+                        types.Part.from_text(text=f"here's our recent conversation history:\n{history_text}")
+                    ],
+                )
+            )
+            contents.append(
+                types.Content(
+                    role="model",
+                    parts=[
+                        types.Part.from_text(text="got it, i'll keep that context in mind")
+                    ],
+                )
+            )
+        
+        # Add the current user input
+        contents.append(
+            types.Content(
+                role="user",
+                parts=[
+                    types.Part.from_text(text=user_input)
+                ],
             )
         )
-
-        print("Start chatting (type 'exit' to quit)")
-        while True:
-            user_input = input("You: ")
-            if user_input.lower() == 'exit':
-                break
-            response = chat.send_message(
-                user_input + "\nPlease search for and include current information about this topic."
-            )
-            result = handle_response(response)
-            print(result)
-
+        
+        # Configure tools
+        tools = [
+            types.Tool(url_context=types.UrlContext()),
+            types.Tool(google_search=types.GoogleSearch()),
+        ]
+        
+        # Set up generation config with George's personality
+        generate_content_config = types.GenerateContentConfig(
+            tools=tools,
+            response_mime_type="text/plain",
+            system_instruction=[
+                types.Part.from_text(text=system_prompt),
+            ],
+        )
+        
+        logger.info("Making API call to Google Genai")
+        
+        # Collect the streaming response
+        response_text = ""
+        
+        # Run the async generator in a thread pool since the SDK might not be fully async
+        def generate_sync():
+            full_response = ""
+            for chunk in client.models.generate_content_stream(
+                model="gemini-2.5-pro-preview-05-06",  # Using the latest model
+                contents=contents,
+                config=generate_content_config,
+            ):
+                if chunk.text:
+                    full_response += chunk.text
+            return full_response
+        
+        # Run in executor to avoid blocking
+        loop = asyncio.get_event_loop()
+        response_text = await loop.run_in_executor(None, generate_sync)
+        
+        # Log the response
+        logger.info(f"{Fore.MAGENTA}George response: {response_text[:100]}...{Style.RESET_ALL}")
+        
+        return {"content": response_text, "image_url": None}
+        
     except Exception as e:
-        print(f"Error during test: {str(e)}")
-
-if __name__ == "__main__":
-    test_chat()
+        logger.error(f"Error in get_response for George: {e}", exc_info=True)
+        return {
+            "content": "ugh, something borked. try again maybe? idk man",
+            "image_url": None
+        }

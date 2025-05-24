@@ -1,3 +1,5 @@
+python-docx
+PyPDF2
 discord.py>=2.4.0
 openai
 python-dotenv>=1.0.1
@@ -14,3 +16,4 @@ mysql-connector-python>=9.1.0
 colorama>=0.4.6
 aiofiles>=24.1.0
 pynacl>=1.5.0
+pandas

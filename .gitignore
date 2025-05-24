@@ -1,0 +1,8 @@
+# --- Python virtual-envs ---------------------------------
+venv/          # common folder name
+.venv/         # if you prefer a dot-prefixed env
+env/           # sometimes people call it just “env”
+
+# --- Environment-variable files --------------------------
+.env           # dotenv file holding secrets
+.env.*         # e.g., .env.development, .env.local
