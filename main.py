@@ -217,12 +217,12 @@ class MultiBot(discord.Client):
         intents.message_content = True
         intents.dm_messages = True
         intents.reactions = True
-		# Image DM feature configuration
-		image_dm_config = kwargs.get('image_dm_config', {})
-		self.image_dm_enabled = image_dm_config.get('enabled', False)
-		self.image_dm_channel = image_dm_config.get('channel_id', 1019641944181329941)
-		self.image_dm_emoji = image_dm_config.get('emoji', '🖼️')
-		self.processed_reactions = set()
+	# Image DM feature configuration
+	image_dm_config = kwargs.get('image_dm_config', {})
+	self.image_dm_enabled = image_dm_config.get('enabled', False)
+	self.image_dm_channel = image_dm_config.get('channel_id', 1019641944181329941)
+	self.image_dm_emoji = image_dm_config.get('emoji', '🖼️')
+	self.processed_reactions = set()
 
         super().__init__(intents=intents)
 
@@ -279,104 +279,104 @@ class MultiBot(discord.Client):
 
 
 	async def handle_image_dm_reaction(self, payload):
-		"""Handle emoji reactions for DMing images with UUID rename"""
-		# Only process if it's the configured emoji in the configured channel
-		if payload.channel_id != self.image_dm_channel:
+	"""Handle emoji reactions for DMing images with UUID rename"""
+	# Only process if it's the configured emoji in the configured channel
+	if payload.channel_id != self.image_dm_channel:
+		return
+	
+	if str(payload.emoji) != self.image_dm_emoji:
+		return
+	
+	# Don't process bot's own reactions
+	if payload.user_id == self.user.id:
+		return
+	
+	# Avoid processing the same reaction twice
+	reaction_key = f"{payload.message_id}-{payload.user_id}-{payload.emoji}"
+	if reaction_key in self.processed_reactions:
+		return
+	self.processed_reactions.add(reaction_key)
+	
+	try:
+		# Get the channel and message
+		channel = self.get_channel(payload.channel_id)
+		if not channel:
 			return
 		
-		if str(payload.emoji) != self.image_dm_emoji:
+		message = await channel.fetch_message(payload.message_id)
+		if not message.attachments:
 			return
 		
-		# Don't process bot's own reactions
-		if payload.user_id == self.user.id:
+		# Get the user who reacted
+		user = await self.fetch_user(payload.user_id)
+		if not user:
 			return
 		
-		# Avoid processing the same reaction twice
-		reaction_key = f"{payload.message_id}-{payload.user_id}-{payload.emoji}"
-		if reaction_key in self.processed_reactions:
-			return
-		self.processed_reactions.add(reaction_key)
-		
-		try:
-			# Get the channel and message
-			channel = self.get_channel(payload.channel_id)
-			if not channel:
-				return
+		# Process each image attachment
+		images_sent = 0
+		for attachment in message.attachments:
+			# Check if it's an image
+			if not any(attachment.filename.lower().endswith(ext) for ext in ['.png', '.jpg', '.jpeg', '.gif', '.webp']):
+				continue
 			
-			message = await channel.fetch_message(payload.message_id)
-			if not message.attachments:
-				return
-			
-			# Get the user who reacted
-			user = await self.fetch_user(payload.user_id)
-			if not user:
-				return
-			
-			# Process each image attachment
-			images_sent = 0
-			for attachment in message.attachments:
-				# Check if it's an image
-				if not any(attachment.filename.lower().endswith(ext) for ext in ['.png', '.jpg', '.jpeg', '.gif', '.webp']):
-					continue
+			try:
+				# Download the image
+				async with aiohttp.ClientSession() as session:
+					async with session.get(attachment.url) as response:
+						if response.status != 200:
+							continue
+						
+						image_data = await response.read()
+				
+				# Generate UUID and new filename
+				short_uuid = str(uuid.uuid4())[:6]
+				file_extension = Path(attachment.filename).suffix
+				new_filename = f"{Path(attachment.filename).stem}_{short_uuid}{file_extension}"
+				
+				# Create temporary file
+				with tempfile.NamedTemporaryFile(delete=False, suffix=file_extension) as temp_file:
+					temp_file.write(image_data)
+					temp_path = temp_file.name
 				
 				try:
-					# Download the image
-					async with aiohttp.ClientSession() as session:
-						async with session.get(attachment.url) as response:
-							if response.status != 200:
-								continue
-							
-							image_data = await response.read()
+					# Send to user's DM
+					with open(temp_path, 'rb') as f:
+						await user.send(
+							f"Here's the image you requested from {channel.name}:",
+							file=discord.File(f, filename=new_filename)
+						)
+					images_sent += 1
 					
-					# Generate UUID and new filename
-					short_uuid = str(uuid.uuid4())[:6]
-					file_extension = Path(attachment.filename).suffix
-					new_filename = f"{Path(attachment.filename).stem}_{short_uuid}{file_extension}"
+					logger.info(f"Sent image {new_filename} to {user.name} via DM")
 					
-					# Create temporary file
-					with tempfile.NamedTemporaryFile(delete=False, suffix=file_extension) as temp_file:
-						temp_file.write(image_data)
-						temp_path = temp_file.name
-					
+				finally:
+					# Clean up temporary file
 					try:
-						# Send to user's DM
-						with open(temp_path, 'rb') as f:
-							await user.send(
-								f"Here's the image you requested from {channel.name}:",
-								file=discord.File(f, filename=new_filename)
-							)
-						images_sent += 1
-						
-						logger.info(f"Sent image {new_filename} to {user.name} via DM")
-						
-					finally:
-						# Clean up temporary file
-						try:
-							os.unlink(temp_path)
-						except:
-							pass
-							
-				except discord.Forbidden:
-					logger.error(f"Cannot send DM to user {user.name} - DMs may be disabled")
-					# Optionally, react to the message to indicate DM failed
-					try:
-						await message.add_reaction('❌')
+						os.unlink(temp_path)
 					except:
 						pass
-					break
-				except Exception as e:
-					logger.error(f"Error processing image {attachment.filename}: {e}")
-					continue
-			
-			# Add a checkmark if images were sent successfully
-			if images_sent > 0:
+						
+			except discord.Forbidden:
+				logger.error(f"Cannot send DM to user {user.name} - DMs may be disabled")
+				# Optionally, react to the message to indicate DM failed
 				try:
-					await message.add_reaction('✅')
+					await message.add_reaction('❌')
 				except:
 					pass
-					
-		except Exception as e:
-			logger.error(f"Error in handle_image_dm_reaction: {e}", exc_info=True)
+				break
+			except Exception as e:
+				logger.error(f"Error processing image {attachment.filename}: {e}")
+				continue
+		
+		# Add a checkmark if images were sent successfully
+		if images_sent > 0:
+			try:
+				await message.add_reaction('✅')
+			except:
+				pass
+				
+	except Exception as e:
+		logger.error(f"Error in handle_image_dm_reaction: {e}", exc_info=True)
 
     async def on_message(self, message):
         """Handle incoming messages."""
