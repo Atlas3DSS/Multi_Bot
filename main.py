@@ -281,6 +281,9 @@ class MultiBot(discord.Client):
 	async def handle_image_dm_reaction(self, payload):
 	"""Handle emoji reactions for DMing images with UUID rename"""
 	# Only process if it's the configured emoji in the configured channel
+	# Check if feature is enabled for this bot
+    	if not self.image_dm_enabled:
+        	return
 	if payload.channel_id != self.image_dm_channel:
 		return
 	
