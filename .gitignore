@@ -9,3 +9,4 @@ env/           # sometimes people call it just “env”
 
 allowed.py
 mmf_usernames.csv
+bot.log
