@@ -6,3 +6,5 @@ env/           # sometimes people call it just “env”
 # --- Environment-variable files --------------------------
 .env           # dotenv file holding secrets
 .env.*         # e.g., .env.development, .env.local
+
+allowed.py
