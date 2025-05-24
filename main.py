@@ -1189,16 +1189,22 @@ async def main():
                 'token': TOMMY_BOT_TOKEN,
                 'kwargs': {}
             },
-            # Bob - MultiBot with user mention handling
-            {
-                'class': MultiBot,
-                'name': 'Bob',
-                'prompt': bob_system_prompt,
-                'response_func': bob_get_response,
-                'token': BOB_BOT_TOKEN,
-                'kwargs': {'intents': discord.Intents.all()  # Need all intents for reaction handling
-                          }
-            },
+            # Bob - with different emoji
+	    {
+	        'class': MultiBot,
+	        'name': 'Bob',
+	        'prompt': bob_system_prompt,
+	        'response_func': bob_get_response,
+	        'token': BOB_BOT_TOKEN,
+	        'kwargs': {
+	            'intents': discord.Intents.all(),
+	            'image_dm_config': {
+	                'enabled': True,
+	                'channel_id': 1019641944181329941,
+	                'emoji': '💾'
+	            }
+	        }
+	    },
             # Claude - MultiBot with message queue
             {
                 'class': ClaudeBot,  # Use the enhanced ClaudeBot class
