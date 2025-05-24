@@ -8,3 +8,4 @@ env/           # sometimes people call it just “env”
 .env.*         # e.g., .env.development, .env.local
 
 allowed.py
+mmf_usernames.csv
